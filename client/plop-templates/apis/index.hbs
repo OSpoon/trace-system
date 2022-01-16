@@ -1,0 +1,53 @@
+import request from '@/utils/request'
+
+{{#if get}}
+/*
+  获取{{ name }}数据
+*/
+export function {{ name }}Get(query) {
+  return request({
+    url: '/{{ name }}/get',
+    method: 'get',
+    params: query
+  })
+}
+{{/if}}
+
+{{#if post}}
+/*
+  创建{{ name }}数据
+*/
+export function {{ name }}Post(data) {
+  return request({
+    url: '/{{ name }}/login',
+    method: 'post',
+    data
+  })
+}
+{{/if}}
+
+{{#if put}}
+/*
+  更新{{ name }}数据
+*/
+export function {{ name }}Put(data) {
+  return request({
+    url: '/{{ name }}/put',
+    method: 'put',
+    data
+  })
+}
+{{/if}}
+
+{{#if delete}}
+/*
+  删除{{ name }}数据
+*/
+export function {{ name }}Del(id) {
+  return request({
+    url: '/{{ name }}/delete',
+    method: 'delete',
+    params: id
+  })
+}
+{{/if}}
