@@ -1,8 +1,6 @@
 'use strict';
 
 const BaseController = require('./base');
-const KEY = require('../key');
-const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 const loginUserRule = {
@@ -19,42 +17,31 @@ class UserController extends BaseController {
       return this.error('参数校验失败', -1, e.errors);
     }
     const { username, password } = ctx.request.body;
-    const ret = await ctx.model.User.findOne({ username });
-    if (ret.password && ret.password === md5(password)) {
-      const token = jwt.sign({ username }, KEY.secretOrPrivateKey);
-      const tokenRet = await ctx.model.Token.create({
-        token,
-      });
-      if (tokenRet._id) {
-        this.success({ token });
-      }
+    const { code, error, data } = await ctx.service.user.login(username, password);
+    if (code === 20000 && error === 'ok' && data) {
+      this.success({ token: data });
     } else {
-      this.error('用户名或密码错误');
+      this.error(error);
     }
   }
 
   async info() {
     const { ctx } = this;
     const token = ctx.request.header['x-token'];
-    const ret = await ctx.model.Token.findOne({ token });
-    if (ret) {
-      const { username } = jwt.verify(token, KEY.secretOrPrivateKey);
-      const userRet = await ctx.model.User.findOne({ username });
-      if (userRet) {
-        this.success(userRet);
-      }
+    const { code, error, data } = await ctx.service.user.getUserInfo(token);
+    if (code === 20000 && error === 'ok' && data) {
+      this.success(data);
+    } else {
+      this.error(error);
     }
   }
 
   async logout() {
     const { ctx } = this;
     const token = ctx.request.header['x-token'];
-    const ret = await ctx.model.Token.findOne({ token });
-    if (ret) {
-      const tokenRet = await ctx.model.Token.deleteOne({ token });
-      if (tokenRet && tokenRet.ok === 1) {
-        this.success('success');
-      }
+    const { code, error } = await ctx.service.user.logout(token);
+    if (code === 20000 && error === 'ok') {
+      this.success('success');
     } else {
       this.error('服务器暂无在线记录');
     }
