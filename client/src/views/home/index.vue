@@ -18,11 +18,20 @@
       title="商品标题"
       thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
       origin-price="10.00"
-      style="background: #fff;margin-bottom: 10px;"
+      style="background: #fff; margin-bottom: 10px"
     />
-    <van-coupon-cell :coupons="coupons" :chosen-coupon="chosenCoupon" @click="showList = true" />
+    <van-coupon-cell
+      :coupons="coupons"
+      :chosen-coupon="chosenCoupon"
+      @click="showList = true"
+    />
     <!-- 优惠券列表 -->
-    <van-popup v-model="showList" round position="bottom" style="height: 90%; padding-top: 4px;">
+    <van-popup
+      v-model="showList"
+      round
+      position="bottom"
+      style="height: 90%; padding-top: 4px"
+    >
       <van-coupon-list
         :coupons="coupons"
         :chosen-coupon="chosenCoupon"
@@ -31,7 +40,12 @@
         @exchange="onExchange"
       />
     </van-popup>
-    <van-submit-bar :price="3050" button-text="提交订单" :loading="loading" @submit="onSubmit">
+    <van-submit-bar
+      :price="3050"
+      button-text="提交订单"
+      :loading="loading"
+      @submit="onSubmit"
+    >
       <template #tip>
         你的收货地址不支持同城送,
         <span @click="onClickEditAddress">修改地址</span>
@@ -41,7 +55,6 @@
 </template>
 
 <script>
-
 const coupon = {
   available: 1,
   condition: '无使用门槛\n最多优惠12元',
@@ -57,6 +70,7 @@ import { Dialog } from 'vant'
 const rrweb = require('rrweb')
 import { tracePost } from '@/api/trace'
 const { v4: uuidv4 } = require('uuid')
+
 export default {
   name: 'Home',
   props: {},
@@ -76,7 +90,7 @@ export default {
       events: []
     }
   },
-  created() { },
+  created() {},
   mounted() {
     this.start()
   },
@@ -84,7 +98,8 @@ export default {
     start() {
       Dialog.alert({
         title: '温馨提示',
-        message: '接监管要求，为保证您的交易可追溯，当前订单操作将在确认后开始记录！！！'
+        message:
+          '接监管要求，为保证您的交易可追溯，当前订单操作将在确认后开始记录！！！'
       }).then(() => {
         const context = this
         rrweb.record({
@@ -105,7 +120,7 @@ export default {
         content: '大额交易需要进行操作追溯',
         events: this.events,
         username: 'admin'
-      }).then(res => {
+      }).then((res) => {
         this.loading = false
         console.log('[ res ] >', res)
         const { code, data } = res
@@ -120,9 +135,7 @@ export default {
         }
       })
     },
-    onClickEditAddress() {
-
-    },
+    onClickEditAddress() {},
     onChange(index) {
       this.showList = false
       this.chosenCoupon = index

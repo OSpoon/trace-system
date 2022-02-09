@@ -105,7 +105,7 @@ module.exports = [
                     childNodes: [
                       {
                         type: 3,
-                        textContent: '追溯列表 - 可追溯系统',
+                        textContent: '追溯列表 - 行为可回溯分析平台',
                         id: 215
                       }
                     ],
@@ -865,7 +865,7 @@ module.exports = [
                       {
                         type: 3,
                         textContent:
-                          "\n      <strong>We're sorry but 可追溯系统 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>\n    ",
+                          "\n      <strong>We're sorry but 行为可回溯分析平台 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>\n    ",
                         id: 95
                       }
                     ],
@@ -1288,7 +1288,7 @@ module.exports = [
                                                           {
                                                             type: 3,
                                                             textContent:
-                                                              '可追溯系统',
+                                                              '行为可回溯分析平台',
                                                             id: 220
                                                           }
                                                         ],

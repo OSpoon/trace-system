@@ -6,7 +6,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="90px" size="small">
         <el-row>
           <el-col :span="4">
-            <el-form-item label="追溯编号" label-width="90px" prop="trace_id">
+            <el-form-item label="回溯编号" label-width="90px" prop="trace_id">
               <el-input v-model="searchForm.trace_id" />
             </el-form-item>
           </el-col>
@@ -61,7 +61,7 @@
         <el-table-column label="序号" width="95" align="center">
           <template slot-scope="scope">{{ scope.$index }}</template>
         </el-table-column>
-        <el-table-column label="追溯编号" width="320" align="center">
+        <el-table-column label="回溯编号" width="320" align="center">
           <template slot-scope="scope">{{ scope.row.trace_id }}</template>
         </el-table-column>
         <el-table-column label="订单号" width="240" align="center">

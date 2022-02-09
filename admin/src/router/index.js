@@ -47,36 +47,131 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '仪表盘', icon: 'dashboard' }
-    }]
-  },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: {
+          title: '数据仪表盘',
+          icon: 'dashboard'
+        }
+      }
+    ]
+  }
+]
 
+export const asyncRoutes = [
   {
     path: '/traceability-system',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'List',
+        name: 'TraceabilitySystem',
         component: () => import('@/views/traceability-system/index'),
         meta: { title: '追溯列表', icon: 'form' }
       }
+    ],
+    hidden: true
+  },
+
+  {
+    path: '/behavior',
+    component: Layout,
+    redirect: '/behavior/pivotal',
+    name: 'Behavior',
+    meta: {
+      title: '行为分析',
+      icon: 'el-icon-s-help',
+      roles: ['admin', 'editor']
+    },
+    children: [
+      {
+        path: 'pivotal',
+        name: 'Pivotal',
+        component: () => import('@/views/behavior-pivotal/index'),
+        meta: {
+          title: '关键行为分析',
+          icon: 'star'
+        }
+      },
+      {
+        path: 'general',
+        name: 'General',
+        component: () => import('@/views/behavior-general/index'),
+        meta: {
+          title: '普通行为分析',
+          icon: 'clipboard'
+        }
+      },
+      {
+        path: 'other',
+        name: 'Other',
+        component: () => import('@/views/behavior-other/index'),
+        meta: {
+          title: '其他行为分析',
+          icon: 'tree'
+        }
+      }
     ]
   },
+
+  {
+    path: '/archive-management',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'ArchiveManagement',
+        component: () => import('@/views/archive-management/index'),
+        meta: {
+          title: '数据归档管理',
+          icon: 'documentation',
+          roles: ['admin', 'editor']
+        }
+      }
+    ]
+  },
+
+  {
+    path: '/user-management',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'UserManagement',
+        component: () => import('@/views/user-management/index'),
+        meta: {
+          title: '用户授权管理',
+          icon: 'user',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+
+  // {
+  //   path: "external-link",
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: "https://it200.cn/",
+  //       meta: { title: "文档外链", icon: "link" },
+  //     },
+  //   ],
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
 
 const router = createRouter()
 

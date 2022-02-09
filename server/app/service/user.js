@@ -1,3 +1,6 @@
+/* eslint-disable jsdoc/require-returns-type */
+/* eslint-disable jsdoc/require-param-description */
+
 'use strict';
 const Service = require('egg').Service;
 
@@ -6,12 +9,18 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 class UserService extends Service {
-
   async login(username, password) {
     const { ctx } = this;
-    const ret = await ctx.model.User.findOne({ username });
-    if (ret.password && ret.password === md5(password)) {
-      const token = jwt.sign({ username }, KEY.secretOrPrivateKey);
+    const ret = await ctx.model.User.findOne({
+      username,
+      delete: false,
+      disable: false,
+    });
+    if (ret && ret.password && ret.password === md5(password)) {
+      const token = jwt.sign(
+        { username, roles: ret.roles },
+        KEY.secretOrPrivateKey
+      );
       const tokenRet = await ctx.model.Token.create({
         token,
       });
@@ -49,5 +58,30 @@ class UserService extends Service {
     return { code: -1, error: '登出失败，请联系管理员！' };
   }
 
+  /**
+   * 检查token是否有效
+   * @param {*} token
+   * @return bool
+   */
+  async checkToken(token) {
+    const { ctx } = this;
+    const _token = token;
+    const ret = await ctx.model.Token.findOne({ token: _token });
+    return !!ret;
+  }
+
+  /**
+   * 检查是否有超管权限
+   * @param {*} token
+   * @return bool
+   */
+  async isSuperAdmin(token) {
+    const _token = token;
+    const isCheck = await this.checkToken(_token);
+    if (isCheck) {
+      const { roles } = jwt.verify(token, KEY.secretOrPrivateKey);
+      return !!roles.find(v => v === 'admin');
+    }
+  }
 }
 module.exports = UserService;

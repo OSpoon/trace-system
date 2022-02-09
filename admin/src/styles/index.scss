@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  min-width: 1366px;
 }
 
 label {
@@ -67,15 +68,41 @@ div:focus {
 .query-box {
   background: #fff;
   padding: 18px 25px 0 0;
+  border: 1px solid #EBEEF5;
+  border-radius: 10px;
+  margin: 0 15px;
 }
 
 .content {
   background: #fff;
   padding: 20px 15px 60px 15px;
   position: relative;
+  .action-bar{
+
+  }
   .pagination {
     margin-top: 15px;
     position: absolute;
     right: 15px;
   }
+}
+
+::-webkit-scrollbar{
+  width: 6px;
+  height: 6px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  background-color: #c8c8c8;
 }

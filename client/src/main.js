@@ -95,6 +95,9 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 
+import { BehaviorRecord } from './behavior-record/index'
+window.rb = new BehaviorRecord()
+
 new Vue({
   router,
   store,

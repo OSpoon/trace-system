@@ -22,3 +22,51 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function addUser(data) {
+  return request({
+    url: '/user/add',
+    method: 'post',
+    data
+  })
+}
+
+export function getUsers(data) {
+  return request({
+    url: '/user/get',
+    method: 'post',
+    data
+  })
+}
+
+export function delUser(id) {
+  return request({
+    url: '/user/del',
+    method: 'post',
+    data: { id }
+  })
+}
+
+export function enableUser(id) {
+  return request({
+    url: '/user/enable',
+    method: 'post',
+    data: { id }
+  })
+}
+
+export function disableUser(id) {
+  return request({
+    url: '/user/disable',
+    method: 'post',
+    data: { id }
+  })
+}
+
+export function modifyUser(data) {
+  return request({
+    url: '/user/modify',
+    method: 'post',
+    data
+  })
+}
